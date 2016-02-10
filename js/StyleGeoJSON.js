@@ -24,6 +24,7 @@ $.getJSON( "geojson/MTA_subway_lines.geojson", function( data ) {
     // ensure jQuery has pulled all data out of the geojson file
     var subwayLines = data;
 
+
     // style for subway lines
     var subwayStyle = {
         "color": "#a5a5a5",
@@ -47,6 +48,7 @@ $.getJSON( "geojson/MTA_subway_lines.geojson", function( data ) {
 
 
 // let's add pawn shops data
+
 $.getJSON( "geojson/NYC_PawnShop_data.geojson", function( data ) {
     // ensure jQuery has pulled all data out of the geojson file
     var pawnShops = data;
@@ -56,13 +58,14 @@ $.getJSON( "geojson/NYC_PawnShop_data.geojson", function( data ) {
         var pawnShopMarker = L.circle(latlng, 100, {
             stroke: false,
             fillColor: '#2ca25f',
-            fillOpacity: 1
+            fillOpacity: 0.5
         });
         
         return pawnShopMarker;  
     }
 
     var pawnShopClick = function (feature, layer) {
+
         // let's bind some feature properties to a pop up
         layer.bindPopup("<strong>Name:</strong> " + feature.properties.BUSINESS_N + "<br /><strong>Address:</strong> " + feature.properties.ADDRESS);
     }
@@ -106,6 +109,8 @@ $.getJSON( "geojson/NYC_neighborhood_data.geojson", function( data ) {
         if(value > 0.4) { 
             fillColor = "#a50f15";
         }
+       console.log(fillColor);
+ 
 
         var style = {
             weight: 1,
@@ -154,6 +159,7 @@ function createLayerControls(){
     L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 }
+
 
 
 
