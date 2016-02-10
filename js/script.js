@@ -206,7 +206,7 @@ function createLayerControls(){
 
 
 // adding in new data with leaflet.omnivore
-omnivore.csv('csv/CheckCashing.csv').addTo(map);
+// omnivore.csv('csv/CheckCashing.csv').addTo(map);
 
 // lets add these data with some styling base on two data attributes 
 // and have a popup show up on hovering instead of clicking
@@ -305,7 +305,7 @@ var checkCashingCustomStuff = L.geoJson(null, {
 });
 
 // lastly, we'll call omnivore to grab the CSV and apply the styling and interaction
-var checkCashingLayer = omnivore.csv('../csv/CheckCashing.csv', null, checkCashingCustomStuff).addTo(map);
+var checkCashingLayer = omnivore.csv('csv/CheckCashing.csv', null, checkCashingCustomStuff).addTo(map);
 
 
 
