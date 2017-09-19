@@ -18,7 +18,7 @@ $.getJSON( "geojson/MTA_subway_lines.geojson", function( data ) {
     // ensure jQuery has pulled all data out of the geojson file
     var dataset = data;
     // draw the dataset on the map
-    L.geoJson(dataset).addTo(map);
+    //L.geoJson(dataset).addTo(map);
 });
 
 // let's add neighborhood data
@@ -26,13 +26,14 @@ $.getJSON( "geojson/NYC_neighborhood_data.geojson", function( data ) {
     // ensure jQuery has pulled all data out of the geojson file
     var dataset = data;
     // draw the dataset on the map
-    L.geoJson(dataset).addTo(map);
+    //L.geoJson(dataset).addTo(map);
 });
 
 // let's add pawn shops data
 $.getJSON( "geojson/NYC_PawnShop_data.geojson", function( data ) {
     // ensure jQuery has pulled all data out of the geojson file
     var dataset = data;
+    console.log(dataset);
     // draw the dataset on the map
     L.geoJson(dataset).addTo(map);
 });

@@ -55,7 +55,7 @@ $.getJSON( "geojson/NYC_PawnShop_data.geojson", function( data ) {
 
     // pawn shop dots
     var pawnShopPointToLayer = function (feature, latlng){
-        var pawnShopMarker = L.circle(latlng, 100, {
+        var pawnShopMarker = L.circleMarker(latlng, {
             stroke: false,
             fillColor: '#2ca25f',
             fillOpacity: 0.5

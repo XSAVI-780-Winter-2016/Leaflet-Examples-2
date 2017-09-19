@@ -17,10 +17,6 @@ var OSMMapnikTiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}
 });
 // do not add to the map just yet, but add varible to the layer switcher control 
 
-// add in MapQuest Open Aerial layer
-var MapQuestAerialTiles = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png',{
-  attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-});
 
 
 // create global variables we can use for layer controls
@@ -188,7 +184,6 @@ function createLayerControls(){
     var baseMaps = {
         "CartoDB": CartoDBTiles,
         "OSM Mapnik": OSMMapnikTiles,
-        "Mapquest Aerial": MapQuestAerialTiles
     };
 
     var overlayMaps = {
