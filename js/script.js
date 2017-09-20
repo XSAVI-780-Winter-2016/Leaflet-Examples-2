@@ -23,9 +23,8 @@ var OSMMapnikTiles = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}
 var subwayLinesGeoJSON;
 var neighborhoodsGeoJSON;
 var pawnShopsGeoJSON; 
+var checkCashingLayer;
 
-// start the chain reaction by running the addSubwayLines function
-addSubwayLines();
 
 // use jQuery get geoJSON to grab geoJson layer, parse it, then plot it on the map
 // because of the asynchronous nature of Javascript, we'll wrap each "getJSON" call in a function, and then call each one in turn. This ensures our layer will work  
@@ -161,18 +160,9 @@ function addNeighborhoodData() {
 
         // now lets add the data to the map in the order that we want it to appear
 
-        // neighborhoods on the bottom
-        neighborhoodsGeoJSON.addTo(map);
 
-        // subway lines next
-        subwayLinesGeoJSON.addTo(map);
-
-        // finally, the Pawn Shop dots
-        pawnShopsGeoJSON.addTo(map);
-
-
-        // now create the layer controls!
-        createLayerControls(); 
+        // load check cahching layer
+        loadCheckCashing();
 
     });
 
@@ -187,6 +177,7 @@ function createLayerControls(){
     };
 
     var overlayMaps = {
+        "Check Cashing": checkCashingLayer,
         "Pawn Shops": pawnShopsGeoJSON,
         "Subway Lines": subwayLinesGeoJSON,
         "Povery Map": neighborhoodsGeoJSON
@@ -208,7 +199,7 @@ function createLayerControls(){
 
 // lets set up some global functions for setting styles for the dots
 // we'll use these again in the legend
-/*
+
 
 function fillColor(d) {
     return d > 500000 ? '#006d2c' :
@@ -229,6 +220,8 @@ function radius(d) {
 }
 
 
+
+
 // first we need to define how we would like the layer styled
 var checkCashingStyle = function (feature, latlng){
     //console.log(feature.properties.address);
@@ -242,6 +235,8 @@ var checkCashingStyle = function (feature, latlng){
     return checkCashingMarker;
     
 }
+
+
 
 var checkCashingInteraction = function(feature,layer){    
     var highlight = {
@@ -277,6 +272,11 @@ var checkCashingInteraction = function(feature,layer){
     layer.on('mouseout', function(e) {
         // reset style
         layer.setStyle(noHighlight); 
+
+        // ensure that the dot is moved to the front
+        if (!L.Browser.ie && !L.Browser.opera) {
+            layer.bringToBack();
+        }
                         
     });
     
@@ -300,7 +300,31 @@ var checkCashingCustomStuff = L.geoJson(null, {
 });
 
 // lastly, we'll call omnivore to grab the CSV and apply the styling and interaction
-var checkCashingLayer = omnivore.csv('csv/CheckCashing.csv', null, checkCashingCustomStuff).addTo(map);
+function loadCheckCashing() {
+    checkCashingLayer = omnivore.csv('csv/CheckCashing.csv', null, checkCashingCustomStuff)
+        .on('ready', function() {
+            // neighborhoods on the bottom
+            neighborhoodsGeoJSON.addTo(map);
+        
+            // subway lines next
+            subwayLinesGeoJSON.addTo(map);
+        
+            // finally, the Pawn Shop dots
+            pawnShopsGeoJSON.addTo(map);
+        
+            // really finally, load check cashing layer
+            checkCashingLayer.addTo(map);
+
+            // now create the layer controls!
+            createLayerControls(); 
+        })
+        .on('error', function() {
+            console.log("There's been a problem");
+        });
+
+
+}
+
 
 
 
@@ -345,6 +369,8 @@ legend.onAdd = function (map) {
 // add the legend to the map
 legend.addTo(map);
 
-*/
 
+
+// start the chain reaction by running the addSubwayLines function
+addSubwayLines();
 
